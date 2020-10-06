@@ -12,7 +12,8 @@
 import yaml
 from utils.YamlUtil import YamlReader
 
-res = YamlReader("./data.yml").data()
+# res = YamlReader("./data.yml").data()
+res = YamlReader("./data.yml").data_all()
 print(res)
 
 
