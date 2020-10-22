@@ -11,9 +11,9 @@ post请求
 json {"username":"python","password":"12345678"}
 """
 
-from utils.RequestsUtil import requests_get
-from utils.RequestsUtil import requests_post
-from utils.RequestsUtil import Request
+from utils.RequestsUtil import requests_get,requests_post,Request
+from config.Conf import ConfigYaml
+
 '''初始化'''
 request = Request()
 
@@ -23,7 +23,10 @@ import  requests,json
 # 2、定义登录方法
 def test_Login():
 # 3、定义测试数据
-     url = "http://211.103.136.242:8064/authorizations/"
+     conf_y = ConfigYaml() #加载config.Conf文件中的ConfigYaml类
+     url_path = conf_y.get_conf_url() # 读取配置文件中的url
+     url = url_path + "/authorizations/" # 拼接url+登录参数
+     # url = "http://211.103.136.242:8064/authorizations/"
      data = {"username":"python","password":"12345678"}
 # 4、发送Post请求
 #      r = requests_post(url,json = data)
@@ -121,7 +124,6 @@ def test_orders():
 
 
 if __name__ == "__main__" :
-
     test_Login()
     # test_info()
     # test_goodlist()
