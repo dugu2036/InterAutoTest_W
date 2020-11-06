@@ -5,6 +5,7 @@
 @File ：RequestsUtil.py
 """
 import  requests
+from utils.LogUtil import my_log
 
 #创建封装get方法
 
@@ -45,13 +46,17 @@ def requests_post(url,json = None,headers = None):
 #1、重建类
 class Request:
 #2、定义公共方法
+    def __init__(self):
+        self.log = my_log("Requests")
     #1、增加方法参数，根据参数来验证get/post,请求
     def requests_api(self,url,data = None,json = None,headers = None,cookies = None,method = 'get'):
         if method == "get":
             #get请求
+            self.log.debug("发送get请求")
             r = requests.get(url, data = data,headers = headers,json = json,cookies = cookies)
         elif method == "post":
             #post请求
+            self.log.debug("发送post请求")
             r = requests.post(url, data = data, headers=headers, json=json,cookies = cookies)
     #2、重复内容复制进来
         #获取结果相应内容
