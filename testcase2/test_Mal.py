@@ -10,13 +10,10 @@
 post请求	
 json {"username":"python","password":"12345678"}
 """
-import pytest,sys
-sys.path.append('../')  # 新加入的
+
 from utils.RequestsUtil import requests_get,requests_post,Request
 from config.Conf import ConfigYaml
-
-
-
+import pytest
 
 '''初始化'''
 request = Request()

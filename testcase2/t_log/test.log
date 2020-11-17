@@ -1,0 +1,11 @@
+2020-10-26 19:52:51,539-log_file_demo-INFO-this is a info
+2020-10-26 19:52:51,540-log_file_demo-WARNING-this is a warning
+2020-10-26 19:53:43,160-log_file_demo-INFO-this is a info
+2020-10-26 19:53:43,160-log_file_demo-WARNING-this is a warning
+2020-10-26 19:55:05,269-log_file_demo-WARNING-this is a warning
+2020-10-26 19:56:30,144-log_file_demo-WARNING-this is a warning
+2020-10-26 19:57:16,383 log_file_demo WARNING this is a warning
+2020-10-26 19:58:39,700 log_file_demo WARNING this is a warning
+2020-11-02 20:59:42,128 log_file_demo WARNING this is a warning
+2020-11-02 21:02:06,844 log_file_demo WARNING this is a warning
+2020-11-05 20:20:33,008 log_file_demo WARNING this is a warning

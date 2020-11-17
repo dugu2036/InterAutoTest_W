@@ -3,9 +3,11 @@
 # @File : LogUtil.py
 # @Author : Yvon_₯㎕ζ๓
 
-import logging,datetime,os
+import logging,datetime,os,sys
 from config import Conf
 from config.Conf import ConfigYaml
+sys.path.append('../')  # 新加入的
+
 
 #封装工具类
 #定义日志级别的映射

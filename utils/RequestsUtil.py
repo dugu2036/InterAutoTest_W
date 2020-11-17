@@ -4,7 +4,10 @@
 @Auth ： Yvon～₯㎕ζ๓
 @File ：RequestsUtil.py
 """
-import  requests
+import  requests,sys
+sys.path.append('../')  # 新加入的
+
+
 from utils.LogUtil import my_log
 
 #创建封装get方法

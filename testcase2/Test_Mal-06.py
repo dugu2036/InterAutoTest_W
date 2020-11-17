@@ -10,13 +10,9 @@
 post请求	
 json {"username":"python","password":"12345678"}
 """
-import pytest,sys
-sys.path.append('../')  # 新加入的
+
 from utils.RequestsUtil import requests_get,requests_post,Request
 from config.Conf import ConfigYaml
-
-
-
 
 '''初始化'''
 request = Request()
@@ -128,14 +124,8 @@ def test_orders():
 
 
 if __name__ == "__main__" :
-
+    test_Login()
     # test_info()
     # test_goodlist()
     # test_cart()
     # test_orders()
-
-    #1、根据默认运行原则、调整py文件命名，函数命名
-    #2、pytest。main()运行
-    pytest.main(['-s'])
-
-
