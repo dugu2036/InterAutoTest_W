@@ -25,7 +25,7 @@ _config_file = _config_path + os.sep + "conf.yml"
 
 #定义db_conf.yml文件路径
 _db_config_file = _config_path + os.sep + "db_conf.yml"
-# print(_db_config_file)
+print(_db_config_file)
 
 # 定义logs文件路径
 _log_path = BASE_DIR + os.sep + "logs"
@@ -100,7 +100,4 @@ if __name__ == "__main__":
     # print(conf_read.get_conf_log())
     # print(conf_read.get_conf_log_extension())
     print(conf_read.get_db_conf_info("db_1"))
-
-    #1、初始化数据库信息  Base.by init_db
-    #2、接口用例返回结果写进数据库验证
 

@@ -18,27 +18,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(current)) #D:\InterAutoTest_W
 #定义config目录路径
 _config_path = BASE_DIR + os.sep + "config"
 # print(_config_path)
-
 #定义conf.yml文件路径
 _config_file = _config_path + os.sep + "conf.yml"
 # print(_config_file)
-
-#定义db_conf.yml文件路径
-_db_config_file = _config_path + os.sep + "db_conf.yml"
-# print(_db_config_file)
 
 # 定义logs文件路径
 _log_path = BASE_DIR + os.sep + "logs"
 # print(_log_path)
 
-#***************************************定义方法**************************************
-
 def get_config_path():
-    """
-    获取config文件夹目录
-    :return:
-    """
     return _config_path
+
+def get_config_file():
+    return _config_file
 
 def get_log_path():
     """
@@ -47,28 +39,13 @@ def get_log_path():
     """
     return _log_path
 
-def get_config_file():
-    return _config_file
-
-def get_db_config_file():
-    """
-    获取数据库配置文件
-    :return:
-    """
-    return _db_config_file
-
-
-
 
 #2、读取配置文件
 #创建类
 class ConfigYaml:
-
+#初始化读取yaml配置文件
     def __init__(self):
-        # 初始化读取yaml配置文件
         self.config = YamlReader(get_config_file()).data()
-        # 初始化读取数据库yaml配置文件
-        self.db_config = YamlReader(get_db_config_file()).data()
     #定义方法获取重要信息
     def get_conf_url(self):
         return self.config["BASE"]["test"]["url"]
@@ -87,20 +64,8 @@ class ConfigYaml:
         """
         return self.config["BASE"]["log_extension"]
 
-    def get_db_conf_info(self,db_alias):
-        """
-        根据db_alias获取该名称下的数据库信息
-        :param db_alias:
-        :return:
-        """
-        return self.db_config[db_alias]
-
 if __name__ == "__main__":
     conf_read = ConfigYaml()
-    # print(conf_read.get_conf_log())
-    # print(conf_read.get_conf_log_extension())
-    print(conf_read.get_db_conf_info("db_1"))
-
-    #1、初始化数据库信息  Base.by init_db
-    #2、接口用例返回结果写进数据库验证
+    print(conf_read.get_conf_log())
+    print(conf_read.get_conf_log_extension())
 

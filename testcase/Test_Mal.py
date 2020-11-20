@@ -10,13 +10,11 @@
 post请求	
 json {"username":"python","password":"12345678"}
 """
-import pytest,sys
-sys.path.append('../')  # 新加入的
+import pytest,json
 from utils.RequestsUtil import requests_get,requests_post,Request
 from config.Conf import ConfigYaml
-
-
-
+from utils.AssertUtil import AssertUtil
+from common.Base import init_db
 
 '''初始化'''
 request = Request()
@@ -37,8 +35,32 @@ def test_Login():
      r = request.post(url,json = data)
 
 # 5、输出结果
-     print(json.dumps(r,sort_keys=True,ensure_ascii = False,indent=4,separators=(', ', ': ')))  #Json格式打印
+#      print(json.dumps(r,sort_keys=True,ensure_ascii = False,indent=4,separators=(', ', ': ')))  #Json格式打印
+
+     #验证返回状态码
+     code = r["code"]
+     # assert code == 200
+     #调用assert封装函数
+     AssertUtil().assert_code(code,200)
+
+     #验证返回结果内容
+     # body = json.dumps(r["body"])
+     # assert '"user_id": 1, "username": "python"' in body
+     body = r["body"]
+     # print(body)
+     # AssertUtil().assert_in_body(body,'"user_id": 1')
+     AssertUtil().assert_in_body(body,'"username": "python"')
      print("***************************************************************************************************")
+
+#数据库断言
+     #1、初始化数据库对象
+     conn = init_db("db_1")
+     #2、查询结果
+     res_db = conn.fetchone("select id,username from tb_users where username = 'python'")
+     print("数据库查询结果:",res_db)
+     #3、数据库断言
+     user_id = body["user_id"]
+     assert user_id == res_db["id"]
 # 6、返回token
      result_token = r['body']['token']
      # print(result_token)
@@ -129,13 +151,13 @@ def test_orders():
 
 if __name__ == "__main__" :
 
-    # test_info()
+    test_Login()
     # test_goodlist()
     # test_cart()
     # test_orders()
 
     #1、根据默认运行原则、调整py文件命名，函数命名
     #2、pytest。main()运行
-    pytest.main(['-s'])
+    # pytest.main(['-s'])
 
 

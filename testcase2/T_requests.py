@@ -9,7 +9,7 @@ import  requests
 #创建封装get方法
 def requests_get(url,headers):
     #1、发送get请求
-     r = requests.get(url,headers = headers)
+    r = requests.get(url,headers = headers)
     #2、获取结果相应内容
     code = r.status_code
     try:
