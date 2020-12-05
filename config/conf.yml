@@ -6,7 +6,8 @@ BASE:
   log_extension: ".log"
   test:
     url: "http://211.103.136.242:8064"
-
+    case_file: "testdata.xlsx"
+    case_sheet: "美多商城接口测试"
 
 
 

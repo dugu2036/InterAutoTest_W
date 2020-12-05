@@ -4,7 +4,7 @@
 @Auth ： Yvon～₯㎕ζ๓
 @File ：RequestsUtil.py
 """
-import  requests,sys
+import  requests,sys,json
 sys.path.append('../')  # 新加入的
 
 
@@ -81,9 +81,14 @@ class Request:
         #url,json,headers,cookies,method
     #3、调用公共方法
         return self.requests_api(url,method = 'get',**kwargs)
+        # return json.dumps(self.requests_api(url, method='get', **kwargs),
+        #           sort_keys=True, ensure_ascii=False, indent=4, separators=(', ', ': '))  # Json格式返回
     #1、post 定义方法
     def post(self,url,**kwargs):
     #2、定义参数
         #url,json,headers,cookies,method
     #3、调用公共方法
         return self.requests_api(url,method = 'post',**kwargs)
+        # return json.dumps(self.requests_api(url,method = 'post',**kwargs),
+        #                   sort_keys=True, ensure_ascii=False, indent=4, separators=(', ', ': ')) # Json格式返回
+
