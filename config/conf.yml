@@ -10,4 +10,10 @@ BASE:
     case_sheet: "美多商城接口测试"
 
 
-
+email:
+  smtpserver: "mail.beeplay123.com"
+  username: "zhangfajin@beeplay123.com"
+  password: "20A36#20dugu2036"
+  sender: "zhangfajin@beeplay123.com"
+  to_receiver:  'huiselanse@yeah.net'
+  cc_receiver: 'zhangfajin@beeplay123.com'

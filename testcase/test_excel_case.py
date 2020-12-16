@@ -5,11 +5,15 @@
 
 from config.Conf import ConfigYaml
 from common.ExcelData import Data
-from utils.LogUtil import my_log
 from common.ExcelConfig import DataConfig
-from utils.RequestsUtil import Request
-import os,json,pytest
 from common import Base
+from config import Conf
+from utils.RequestsUtil import Request
+from utils.AssertUtil import AssertUtil
+from utils.LogUtil import my_log
+import os,json,pytest
+import allure
+
 
 #1、初始化信息
 #1).初始化测试用例文件
@@ -17,7 +21,7 @@ case_file = os.path.join("../data",ConfigYaml().get_excel_file()) # 拼接路径
 # print(case_file)
 #2).测试用例sheet名称
 sheet_name = ConfigYaml().get_excel_sheet()
-# print(sheet_name)
+print(sheet_name)
 #3).获取运行测试用例列表
 data_init = Data(case_file,sheet_name)
 run_list = data_init.get_run_data()
@@ -52,7 +56,7 @@ class TestExcel:
         elif str(method).lower()=="post":
             res = request.post(url, json=params,headers = header,cookies = cookie)
         else:
-            log.error("错误请求method: %S"%method)
+            log.error("错误请求method: %S"% method)
         # print(res)
         return res
 
@@ -84,9 +88,10 @@ class TestExcel:
     def test_run(self,case):
 
         #run_list 第一个用例,用例,key获取values
-        url = ConfigYaml().get_conf_url() + case[data_key.url]
+        url = ConfigYaml().get_conf_url() +case[data_key.url]
         print(url)
         case_id = case[data_key.case_id]
+        # print(case_id)
         case_model = case[data_key.case_model]
         case_name = case[data_key.case_name]
         pre_exec = case[data_key.pre_exec]
@@ -115,8 +120,35 @@ class TestExcel:
         header = Base.json_parse(headers)
         cookie = Base.json_parse(cookies)
         res = self.run_api(url, method, params, header, cookie)
-        print("测试用例执行: %s" %res)
-        return res
+        print("测试用例执行: %s" % res)
+        # return res  # 注意
+
+        # sheet名称--feature 一级标签
+        allure.dynamic.feature(sheet_name)
+        # 模块--story 二级标签
+        allure.dynamic.story(case_model)
+        # 用例ID + 接口名称 - - title
+        allure.dynamic.title(case_id+case_name)
+        #请求URL 请求类型 期望结果 实际结果 description
+        # allure.dynamic.description(url+method+expect_result+res)
+        desc = "<font color='green' size=3>请求URL: </font> {}<Br/>" \
+               "<font color='green' size=3>请求类型: </font>{}<Br/>" \
+               "<font color='red' size=3>期望结果: </font>{}<Br/>" \
+               "<font color='green' size=3>实际结果: </font>{}".format(url, method, expect_result, res)
+        allure.dynamic.description(desc)
+
+
+
+        #1.断言验证
+        #2.状态码，返回结果内容，数据库相关结果验证
+        #"""断言验证--状态码，返回结果内容，数据库相关的结果的验证"""
+        #1.)状态码
+        assert_util = AssertUtil()
+        assert_util.assert_code(int(res["code"]),int(code))
+        #2.)返回结果内容验证
+        assert_util.assert_in_body(str(res["body"]),str(expect_result))
+        #********数据库结果断言********
+        Base.assert_db("db_1",res["body"],db_verify)
 
 
     def get_correlation(self,headers,cookies,pre_res):
@@ -144,10 +176,17 @@ class TestExcel:
         return headers, cookies
 
 
+
 if __name__ == "__main__":
     # pass
     # TestExcel().test_run()
-    pytest.main(["-s","test_excel_case.py"])
+    # pytest.main(["-s","test_excel_case.py"])
+    report_path = Conf.get_report_path()+os.sep+"result"
+    report_html_path = Conf.get_report_path()+os.sep+"html"
+
+    pytest.main(["-s", "test_excel_case.py", "--alluredir", report_path ])
+    Base.allure_report(report_path, report_html_path)
+    Base.send_mail(title="接口测试报告结果", content=report_html_path)
 
 
 

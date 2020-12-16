@@ -40,6 +40,10 @@ _data_path = BASE_DIR + os.sep + "data"
 _testlogin_config_file = _data_path + os.sep + "testlogin.yml"
 # print(_testlogin_config_file)
 
+#定义report路径
+_report_path = BASE_DIR + os.sep + "report"
+# print(_testlogin_config_file)
+
 
 #***************************************定义方法**************************************
 
@@ -63,6 +67,14 @@ def get_data_path():
     :return:
     """
     return _data_path
+
+def get_report_path():
+    """
+    获取report绝对路径
+    :return:
+    """
+    return _report_path
+
 
 def get_config_file():
     return _config_file
@@ -144,10 +156,22 @@ class ConfigYaml:
         return self.testlogin_config
 
 
+    def get_email_info(self):
+
+        """
+        获取邮件配置信息
+        :return:
+        """
+        return self.config["email"]
+
+
+
+
+
 if __name__ == "__main__":
     conf_read = ConfigYaml()
     # print(conf_read.get_conf_log())
-    print(conf_read.get_conf_url())
+    print(conf_read.get_email_info())
     # print(conf_read.get_testlogin_conf_info())
     # print(conf_read.get_excel_file())
     # print(conf_read.get_excel_sheet())

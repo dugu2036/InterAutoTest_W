@@ -5,9 +5,14 @@
 
 from config.Conf import ConfigYaml
 from utils.MysqlUtil import Mysql
-import re,json
+from utils.LogUtil import my_log
+from utils.AssertUtil import AssertUtil
+from utils.EmailUtil import SendEmail
+import re,json,subprocess
+
 
 p_data = '\${(.*)}\$'
+log = my_log()
 
 #1、定义init_db方法
 def init_db(db_alias):
@@ -24,6 +29,23 @@ def init_db(db_alias):
     conn = Mysql(host,user,password,db_name,charset ,port )
     print(conn)
     return conn
+
+def assert_db(db_name,result,db_verify):
+    assert_util = AssertUtil()
+    sql = init_db(db_name)
+    db_res = sql.fetchone(db_verify)
+    log.debug("数据库查询结果: {}".format(str(db_res)))
+    # 2.)---------数据库的结果与接口返回的结果验证---------
+    # 获取数据库结果的key
+    verify_list = list(dict(db_res).keys())
+    # 根据key获取数据库结果,获取接口返回结果
+    for line in verify_list:
+        res_db_line = dict(db_res)[line]
+        res_line = result[line]
+        # 验证
+        assert_util.assert_body(res_db_line, res_line)
+
+
 
 def json_parse(data):
     """
@@ -81,9 +103,52 @@ def params_find(headers,cookies):
     return headers,cookies
 
 
+def allure_report(report_path,report_html):
+    """
+    生成allure 报告
+    :param report_path:
+    :param report_html:
+    :return:
+    """
+    #执行命令 allure generate
+    allure_cmd ="allure generate %s -o %s --clean"%(report_path,report_html)
+    #subprocess.call
+    log.info("报告地址")
+    try:
+        subprocess.call(allure_cmd,shell=True)
+    except:
+        log.error("执行用例失败，请检查一下测试环境相关配置")
+        raise
+
+def send_mail(report_html_path='',content = '',title = "测试报告邮件"):
+
+    email_info = ConfigYaml().get_email_info()
+    smtp_addr = email_info["smtpserver"]
+    username = email_info["username"]
+    password = email_info["password"]
+    sender = email_info["sender"]
+    to_receiver = email_info["to_receiver"]
+    cc_receiver = email_info["cc_receiver"]
+    recv = to_receiver.split(',') + cc_receiver.split(',')
+
+    # print(recv)
+    email = SendEmail(
+        smtp_addr = smtp_addr,
+        username = username,
+        password = password,
+        sender = sender,
+        recv = recv,
+        title = "测试报告邮件",
+        content = content,
+        file = report_html_path
+    )
+    email.send_mail()
+
+
 if __name__ == "__main__":
     # init_db("db_1")
-    print(res_find('{"Authorization": "JWT ${token}$"}'))
-    print(res_sub('{"Authorization": "JWT ${token}$"},"123"'))
+    # print(res_find('{"Authorization": "JWT ${token}$"}'))
+    # print(res_sub('{"Authorization": "JWT ${token}$"}',"123"))
+    print(send_mail())
 
 
