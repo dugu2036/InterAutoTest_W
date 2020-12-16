@@ -151,13 +151,13 @@ def test_orders():
 
 if __name__ == "__main__" :
 
-    test_Login()
+    # test_Login()
     # test_goodlist()
     # test_cart()
     # test_orders()
 
     #1、根据默认运行原则、调整py文件命名，函数命名
     #2、pytest。main()运行
-    # pytest.main(['-s'])
+    pytest.main(['-s'])
 
 
