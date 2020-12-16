@@ -17,7 +17,7 @@ import allure
 
 #1、初始化信息
 #1).初始化测试用例文件
-case_file = os.path.join("../data",ConfigYaml().get_excel_file()) # 拼接路径+文件
+case_file = os.path.join(Conf.get_data_path(),ConfigYaml().get_excel_file()) # 拼接路径+文件
 # print(case_file)
 #2).测试用例sheet名称
 sheet_name = ConfigYaml().get_excel_sheet()
