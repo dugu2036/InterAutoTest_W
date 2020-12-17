@@ -23,6 +23,7 @@ case_file = os.path.join(Conf.get_data_path(),ConfigYaml().get_excel_file()) # �
 # print(case_file)
 #2).测试用例sheet名称
 sheet_name = ConfigYaml().get_excel_sheet()
+
 # print(sheet_name)
 #3).获取运行测试用例列表
 data_init = Data(case_file,sheet_name)

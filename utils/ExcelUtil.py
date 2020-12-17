@@ -5,6 +5,9 @@
 
 import os
 import xlrd ,json
+from config.Conf import ConfigYaml
+from config import Conf
+
 
 
 #目的：参数化，pytest list文件形式读取
@@ -61,7 +64,13 @@ data_list.append(dict(zip(head,value2)))
 print(data_list)
 """
 if __name__ == "__main__":
-    reader = ExcelReader("../data/testdata.xlsx","美多商城接口测试")
+    case_file = os.path.join(Conf.get_data_path(), ConfigYaml().get_excel_file())  # 拼接路径+文件
+    # print(case_file)
+    # 2).测试用例sheet名称
+    sheet_name = ConfigYaml().get_excel_sheet()
+
+    reader = ExcelReader(case_file,sheet_name)
+    # reader = ExcelReader("../data/testdata.xlsx", "美多商城接口测试")
     result = reader.data()
     print(result)
     # print(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=4, separators=(', ', ': ')))  # Json格式打印
