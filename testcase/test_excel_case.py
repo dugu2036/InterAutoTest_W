@@ -37,7 +37,7 @@ data_key = DataConfig()
 
 class TestExcel:
 
-    def run_api(self,url,method,params=None,header=None,cookie=None,):
+    def run_api(self,url,method,params=None,header=None,cookie=None):
 
         """
         发送请求api
@@ -185,8 +185,8 @@ if __name__ == "__main__":
     report_html_path = Conf.get_report_path()+os.sep+"html"
 
     pytest.main(["-s", "test_excel_case.py", "--alluredir", report_path ])
-    Base.allure_report(report_path, report_html_path)
-    Base.send_mail(title="接口测试报告结果", content=report_html_path)
+    # Base.allure_report(report_path, report_html_path)
+    # Base.send_mail(title="接口测试报告结果", content=report_html_path)
 
 
 

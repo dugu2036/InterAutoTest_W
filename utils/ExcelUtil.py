@@ -7,6 +7,8 @@ import os
 import xlrd ,json
 
 
+
+
 #目的：参数化，pytest list文件形式读取
 # 自定义异常
 class SheetTypeError:
@@ -28,7 +30,6 @@ class ExcelReader:
         if not self._data:
             workbook = xlrd.open_workbook(self.excel_file)
             if type(self.sheet_by)  not in [str,int]:
-
                 raise SheetTypeError("请输入int or str")
             elif type(self.sheet_by) == int:
                 sheet = workbook.sheet_by_index(self.sheet_by)  # int型
@@ -65,6 +66,7 @@ print(data_list)
 if __name__ == "__main__":
     reader = ExcelReader("../data/testdata.xlsx","美多商城接口测试")
     result = reader.data()
+    print(result)
     # print(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=4, separators=(', ', ': ')))  # Json格式打印
 
 

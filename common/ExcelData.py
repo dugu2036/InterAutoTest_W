@@ -8,10 +8,10 @@ import json
 from common.ExcelConfig import DataConfig
 
 class Data:
-    def __init__(self,testcase_file,sheet_name):
+    def __init__(self,case_file,sheet_name):
     #1、使用excel工具类，获取结果list
         # self.reader = ExcelReader("../data/testdata.xlsx","美多商城接口测试")
-        self.reader = ExcelReader(testcase_file, sheet_name)  #文件名、sheet_name参数化
+        self.reader = ExcelReader(case_file, sheet_name)  #文件名、sheet_name参数化
         # print(self.reader.data())
 
     #2、列是否运行内容，y
@@ -63,4 +63,4 @@ class Data:
 
 
 # if __name__ == "__main__":
-#     print(Data.get_run_data())
+#     print(Data.get_run_data(self))
