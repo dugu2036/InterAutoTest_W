@@ -7,7 +7,7 @@
 
 """
 登录成功：http://211.103.136.242:8064/authorizations/
-post请求	
+post请求2	
 json {"username":"python","password":"12345678"}
 """
 import pytest,json
