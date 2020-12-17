@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# @Time : 2020/12/1 20:52
+# @File : ExcelConfig.py
+# @Author : Yvon_₯㎕ζ๓
 
 
 #定义类
