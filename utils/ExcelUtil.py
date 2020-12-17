@@ -7,8 +7,6 @@ import os
 import xlrd ,json
 
 
-
-
 #目的：参数化，pytest list文件形式读取
 # 自定义异常
 class SheetTypeError:
@@ -22,7 +20,6 @@ class ExcelReader:
             self._data = list()
         else:
             raise FileNotFoundError("文件不存在")
-
 
 #2、读取sheet方式.名称,索引
     def data(self):

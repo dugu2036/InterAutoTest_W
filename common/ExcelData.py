@@ -4,7 +4,7 @@
 # @Author : Yvon_懿払曦
 
 from utils.ExcelUtil import ExcelReader
-import json
+# import json
 from common.ExcelConfig import DataConfig
 
 class Data:
@@ -12,7 +12,7 @@ class Data:
     #1、使用excel工具类，获取结果list
         # self.reader = ExcelReader("../data/testdata.xlsx","美多商城接口测试")
         self.reader = ExcelReader(case_file, sheet_name)  #文件名、sheet_name参数化
-        # print(self.reader.data())
+
 
     #2、列是否运行内容，y
     def get_run_data(self):
@@ -63,4 +63,5 @@ class Data:
 
 
 # if __name__ == "__main__":
-#     print(Data.get_run_data(self))
+#     # a = Data().get_run_data()
+#     print(reader.data())

@@ -4,10 +4,12 @@
 # @Author : Yvon_₯㎕ζ๓
 
 from config.Conf import ConfigYaml
+from config import Conf
 from common.ExcelData import Data
 from common.ExcelConfig import DataConfig
+from common import ExcelConfig
 from common import Base
-from config import Conf
+
 from utils.RequestsUtil import Request
 from utils.AssertUtil import AssertUtil
 from utils.LogUtil import my_log
@@ -21,17 +23,20 @@ case_file = os.path.join(Conf.get_data_path(),ConfigYaml().get_excel_file()) # �
 # print(case_file)
 #2).测试用例sheet名称
 sheet_name = ConfigYaml().get_excel_sheet()
-print(sheet_name)
+# print(sheet_name)
 #3).获取运行测试用例列表
 data_init = Data(case_file,sheet_name)
+
 run_list = data_init.get_run_data()
+print(run_list)
 # print(json.dumps(run_list, sort_keys=True, ensure_ascii=False, indent=4, separators=(', ', ': ')))  # Json格式打印
 
 #4).日志
 log = my_log()
 
 #初始化DataConfig
-data_key = DataConfig()
+# data_key = DataConfig()
+data_key = ExcelConfig.DataConfig
 #2、测试用例方法、参数化运行
 #先用一个用例去调试
 
